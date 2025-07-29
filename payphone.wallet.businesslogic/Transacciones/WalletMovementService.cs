@@ -53,7 +53,7 @@ namespace payphone.wallet.businesslogic.Transacciones
             if (mov.Type == "D" && mov.Amount > wallet.Balance) {
                 throw new WalletException(ErrorEnum.ERR001.GetDescription(), ErrorEnum.ERR001.ToString());
             }
-
+                        
             var mount = mov.Type == "D" ? (-1)*mov.Amount : mov.Amount;
             wallet.Balance += mount;
             movPersis.Available = wallet.Balance;

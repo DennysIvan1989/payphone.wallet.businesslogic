@@ -19,6 +19,8 @@ namespace payphone.wallet.businesslogic
         [Description("Billetera esta inactiva.")]
         ERROO4,
         [Description("No puede transaccionar con valores negativos ni cero.")]
-        ERROO5
+        ERROO5,
+        [Description("Transacción incorrecta, valores deben ser D:Debito o C:Credito")]
+        ERROO6
     }
 }

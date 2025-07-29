@@ -140,8 +140,8 @@ namespace payphone.wallet.businesslogic.Transacciones.Tests
                 var movW = new WalletMovementDto()
                 {
                     WalletId = 1,
-                    Amount = 0M,
-                    Type = "D",
+                    Amount = 3.23M,
+                    Type = "X",
                     CalendarAt = new DateTime(2025, 8, 28),
                     UserCreate = "pytest",
                     CreateAt = DateTime.Now,

@@ -39,6 +39,7 @@ namespace payphone.wallet.businesslogic.Dto.Wallet
         /// </summary>
         [JsonProperty("Tipo")]
         [MaxLength(1)]
+        [RegularExpression("^[DC]$", ErrorMessage = "Solo puede ser D o C")]
         public string Type { get; set; } = null!;
 
         /// <summary>
