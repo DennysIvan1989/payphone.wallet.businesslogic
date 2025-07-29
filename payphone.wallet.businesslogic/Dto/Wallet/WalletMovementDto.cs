@@ -62,6 +62,12 @@ namespace payphone.wallet.businesslogic.Dto.Wallet
         public DateTime CreateAt { get; set; }
 
         /// <summary>
+        /// fechaCreo
+        /// </summary>
+        [JsonProperty("documento")]
+        public string? Document { get; set; }
+
+        /// <summary>
         /// A que billetera
         /// </summary>
         [JsonProperty("billetera")]

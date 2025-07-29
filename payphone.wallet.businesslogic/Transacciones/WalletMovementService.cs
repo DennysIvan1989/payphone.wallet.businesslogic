@@ -96,5 +96,46 @@ namespace payphone.wallet.businesslogic.Transacciones
             resultado.Correcto = true;
             return resultado;
         }
+
+        public ResultadoDto<string> Transfer(TransferDto datos)
+        {
+
+            var resultado = new ResultadoDto<string>();
+            if (datos.Amount == 0) {
+                throw new WalletException(ErrorEnum.ERROO5.GetDescription(), ErrorEnum.ERROO5.ToString());
+            }
+            var document = DateTime.Now.Ticks.ToString();
+            var movOrigin = new WalletMovementDto()
+            {
+                WalletId = datos.WalletOrigin,
+                Amount = datos.Amount,
+                Type = "D",
+                CalendarAt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day),
+                UserCreate = datos.CodUser,
+                CreateAt = DateTime.Now,
+                Active = true,
+                Document = document
+            };
+
+            CreateMovement(movOrigin);
+
+            var movDes = new WalletMovementDto()
+            {
+                WalletId = datos.WalletDestination,
+                Amount = datos.Amount,
+                Type = "C",
+                CalendarAt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day),
+                UserCreate = datos.CodUser,
+                CreateAt = DateTime.Now,
+                Active = true,
+                Document = document
+            };
+
+            CreateMovement(movDes);
+
+            resultado.Correcto = true;
+            resultado.Anexo = document;
+            return resultado;
+        }
     }
 }

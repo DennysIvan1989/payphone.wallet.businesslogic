@@ -95,7 +95,7 @@ namespace payphone.wallet.businesslogic.Transacciones.Tests
                     Active = true
                 };
 
-                var respuesta = wallerService.UpdateWallet(wallet);
+                var respuesta = wallerService.UpdateWallet(1, wallet);
                 if (respuesta.Correcto)
                     context.SaveChanges();
 
@@ -139,13 +139,14 @@ namespace payphone.wallet.businesslogic.Transacciones.Tests
                 var context = scope.ServiceProvider.GetRequiredService<WalletDbContext>();
                 var movW = new WalletMovementDto()
                 {
-                    WalletId = 1,
+                    WalletId = 3,
                     Amount = 3.23M,
-                    Type = "X",
+                    Type = "A",
                     CalendarAt = new DateTime(2025, 8, 28),
                     UserCreate = "pytest",
                     CreateAt = DateTime.Now,
-                    Active = true
+                    Active = true,
+                    Document = DateTime.Now.Ticks.ToString()
                 };
                 var respuesta = wallerMovService.CreateMovement(movW);
                 if (respuesta.Correcto) {
