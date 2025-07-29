@@ -15,6 +15,5 @@ namespace payphone.wallet.businesslogic.Transacciones
         ResultadoDto<WalletMovementDto> DetailMovement(int idMov);
         ResultadoDto<List<WalletMovementDto>> GetMovementRangeDate(DateTime initDate, DateTime endDate, int idWallet);
         ResultadoDto<string> Transfer(TransferDto datos);
-
     }
 }
