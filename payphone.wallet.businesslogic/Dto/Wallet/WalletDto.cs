@@ -19,7 +19,7 @@ namespace payphone.wallet.businesslogic.Dto.Wallet
         /// Id
         /// </summary>
         [JsonProperty("id")]
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         /// <summary>
         /// indetificacion
@@ -46,6 +46,8 @@ namespace payphone.wallet.businesslogic.Dto.Wallet
         /// </summary>
         [JsonProperty("estado")]
         [MaxLength(1)]
+        [RegularExpression("^[AI]$", ErrorMessage = "Solo puede ser A:activo o I:inactivo")]
+
         public string? State { get; set; }
 
         /// <summary>
@@ -72,18 +74,13 @@ namespace payphone.wallet.businesslogic.Dto.Wallet
         /// </summary>
         [JsonProperty("usuarioActualizo")]
         [MaxLength(20)]
-        public string UserUpdate { get; set; } = null!;
+        public string? UserUpdate { get; set; } = null!;
 
         /// <summary>
         /// Fecha de actualización del registro
         /// </summary>
         [JsonProperty("fechaActualizacion")]
         public DateTime? UpdateAt { get; set; }
-
-        /// <summary>
-        /// Lista de Movimientos de la billetera
-        /// </summary>
-        [JsonProperty("movimientos")]
-        public List<WalletMovementDto> WalletMovements { get; } = new List<WalletMovementDto>();
+     
     }
 }

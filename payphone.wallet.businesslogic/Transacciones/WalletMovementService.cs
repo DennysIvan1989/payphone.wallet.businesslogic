@@ -32,9 +32,10 @@ namespace payphone.wallet.businesslogic.Transacciones
             var movPersis = _mapper.Map<WalletMovement>(mov);
 
             //validacion
-            var wallet = _context.Wallets.FirstOrDefault(t => t.Id == mov.WalletId);
+            var wallet = _context.Wallets.FirstOrDefault(t => t.Id == mov.WalletId && t.Active);
 
-            if (wallet == null) {
+            if (wallet == null)
+            {
 
                 throw new WalletException(ErrorEnum.ERROO3.GetDescription(), ErrorEnum.ERROO3.ToString());
             }
@@ -45,16 +46,18 @@ namespace payphone.wallet.businesslogic.Transacciones
                 throw new WalletException(ErrorEnum.ERROO5.GetDescription(), ErrorEnum.ERROO5.ToString());
             }
 
-            if (wallet.State != "A") {
+            if (wallet.State != "A")
+            {
 
                 throw new WalletException(ErrorEnum.ERROO4.GetDescription(), ErrorEnum.ERROO4.ToString());
             }
 
-            if (mov.Type == "D" && mov.Amount > wallet.Balance) {
+            if (mov.Type == "D" && mov.Amount > wallet.Balance)
+            {
                 throw new WalletException(ErrorEnum.ERR001.GetDescription(), ErrorEnum.ERR001.ToString());
             }
-                        
-            var mount = mov.Type == "D" ? (-1)*mov.Amount : mov.Amount;
+
+            var mount = mov.Type == "D" ? (-1) * mov.Amount : mov.Amount;
             wallet.Balance += mount;
             movPersis.Available = wallet.Balance;
             _context.WalletMovements.Add(movPersis);
@@ -65,7 +68,12 @@ namespace payphone.wallet.businesslogic.Transacciones
         public ResultadoDto<WalletMovementDto> DetailMovement(int idMov)
         {
             var resultado = new ResultadoDto<WalletMovementDto>();
-            var movPresis = _context.WalletMovements.First(t => t.Id == idMov);
+            var movPresis = _context.WalletMovements.FirstOrDefault(t => t.Id == idMov);
+            if (movPresis == null)
+            {
+
+                throw new WalletException(ErrorEnum.ERROO7.GetDescription(), ErrorEnum.ERROO7.ToString());
+            }
             var movDto = _mapper.Map<WalletMovementDto>(movPresis);
             resultado.Anexo = movDto;
             resultado.Correcto = true;
@@ -75,6 +83,13 @@ namespace payphone.wallet.businesslogic.Transacciones
         public ResultadoDto<List<WalletMovementDto>> GetMovementRangeDate(DateTime initDate, DateTime endDate, int idWallet)
         {
             var resultado = new ResultadoDto<List<WalletMovementDto>>();
+            var wallet = _context.Wallets.FirstOrDefault(t => t.Id == idWallet && t.Active);
+
+            if (wallet == null)
+            {
+                throw new WalletException(ErrorEnum.ERROO3.GetDescription(), ErrorEnum.ERROO3.ToString());
+            }
+
             var movsWallet = _context.WalletMovements.Where(t => t.CreateAt >= initDate && t.CreateAt <= endDate && t.WalletId == idWallet && t.Active).ToList();
             var infoRes = _mapper.Map<List<WalletMovementDto>>(movsWallet);
             resultado.Anexo = infoRes;

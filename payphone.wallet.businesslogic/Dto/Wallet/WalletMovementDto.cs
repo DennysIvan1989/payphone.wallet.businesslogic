@@ -20,7 +20,7 @@ namespace payphone.wallet.businesslogic.Dto.Wallet
         /// id
         /// </summary>
         [JsonProperty("id")]
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         /// <summary>
         /// Datos Billetera
@@ -40,20 +40,20 @@ namespace payphone.wallet.businesslogic.Dto.Wallet
         [JsonProperty("Tipo")]
         [MaxLength(1)]
         [RegularExpression("^[DC]$", ErrorMessage = "Solo puede ser D o C")]
-        public string Type { get; set; } = null!;
+        public string Type { get; set; }
 
         /// <summary>
         /// Disponible
         /// </summary>
         [JsonProperty("disponible")]
-        public decimal Available { get; set; }
+        public decimal? Available { get; set; }
 
         /// <summary>
         /// Usuario creo
         /// </summary>
         [JsonProperty("usuarioCreo")]
         [MaxLength(20)]
-        public string UserCreate { get; set; } = null!;
+        public string UserCreate { get; set; }
 
         /// <summary>
         /// fechaCreo
@@ -65,6 +65,6 @@ namespace payphone.wallet.businesslogic.Dto.Wallet
         /// A que billetera
         /// </summary>
         [JsonProperty("billetera")]
-        public WalletDto Wallet { get; set; } = null!;
+        public WalletDto? Wallet { get; set; }
     }
 }

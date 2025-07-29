@@ -11,7 +11,7 @@ namespace payphone.wallet.businesslogic.Transacciones
     public interface IWallet
     {
         ResultadoDto CreateWallet(WalletDto wallet);
-        ResultadoDto UpdateWallet(WalletDto wallet);
+        ResultadoDto UpdateWallet(int id, WalletDto wallet);
         ResultadoDto DeteleWallet(int idWallet);
         ResultadoDto<WalletDto> GetWallet(int idWallet);
         ResultadoDto<List<WalletDto>> GetWalletForState(string state);

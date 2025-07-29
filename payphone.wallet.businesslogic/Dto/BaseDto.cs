@@ -19,6 +19,6 @@ namespace payphone.wallet.businesslogic.Dto
         /// Registro Activo
         /// </summary>
         [JsonProperty("activo")]
-        public bool Active { get; set; }
+        public bool? Active { get; set; }
     }
 }
